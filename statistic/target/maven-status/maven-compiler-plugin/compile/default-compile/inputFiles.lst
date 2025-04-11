@@ -1,7 +1,7 @@
 E:\Project\Module_statistic_revenue\statistic\src\main\java\com\example\App.java
-E:\Project\Module_statistic_revenue\statistic\src\main\java\com\example\DAO\BillDAO.java
-E:\Project\Module_statistic_revenue\statistic\src\main\java\com\example\DAO\DAO.java
-E:\Project\Module_statistic_revenue\statistic\src\main\java\com\example\DAO\HotelStatDAO.java
+E:\Project\Module_statistic_revenue\statistic\src\main\java\com\example\dao\BillDAO.java
+E:\Project\Module_statistic_revenue\statistic\src\main\java\com\example\dao\DAO.java
+E:\Project\Module_statistic_revenue\statistic\src\main\java\com\example\dao\HotelStatDAO.java
 E:\Project\Module_statistic_revenue\statistic\src\main\java\com\example\model\Bill.java
 E:\Project\Module_statistic_revenue\statistic\src\main\java\com\example\model\BookedRoom.java
 E:\Project\Module_statistic_revenue\statistic\src\main\java\com\example\model\Booking.java

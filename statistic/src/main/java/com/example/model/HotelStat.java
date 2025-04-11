@@ -15,7 +15,10 @@ public class HotelStat extends Hotel {
         this.revenueService = revenueService;
         this.totalRevenue = totalRevenue;
     }
-
+    @Override
+    public int getId(){
+        return super.getId();
+    }
     public float getRevenueRoom() {
         return revenueRoom;
     }
@@ -39,4 +42,14 @@ public class HotelStat extends Hotel {
     public void setTotalRevenue(float totalRevenue) {
         this.totalRevenue = totalRevenue;
     }
+    @Override
+    public String toString() {
+        return "HotelStat{" +
+                "id=" + this.getId() +
+                ", revenueRoom=" + revenueRoom +
+                ", revenueService=" + revenueService +
+                ", totalRevenue=" + totalRevenue +
+                '}';
+    }
+
 }

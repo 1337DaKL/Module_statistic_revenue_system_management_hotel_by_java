@@ -5,6 +5,7 @@ com\example\dao\DAO.class
 com\example\view\ManagerHomeFrm$1.class
 com\example\view\SelectStatisticView$1.class
 com\example\dao\HotelStatDAO.class
+com\example\view\BranchStatisticView$2.class
 com\example\view\SelectStatisticView.class
 com\example\model\HotelStat.class
 com\example\model\Service.class
