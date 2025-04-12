@@ -22,7 +22,7 @@ public class HotelStatDAO extends DAO {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     HotelStat hs = new HotelStat();
-                    // hs.setId(rs.getInt("hotelID"));
+                    hs.setId(rs.getInt("hotelID"));
                     hs.setAddress(rs.getString("address"));
                     hs.setStartLevel(rs.getInt("startLevel"));
                     hs.setRevenueRoom(rs.getFloat("roomRevenue"));

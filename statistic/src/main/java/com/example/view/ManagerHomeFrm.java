@@ -18,7 +18,7 @@ public class ManagerHomeFrm extends JFrame {
 
         btnNext.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new SelectStatisticView(); 
+                new SelectStatisticFrm(); 
                 dispose(); 
             }
         });

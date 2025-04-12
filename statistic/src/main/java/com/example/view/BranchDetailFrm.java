@@ -1,10 +1,12 @@
 package com.example.view;
 
+import java.util.*;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class BranchDetailView extends JFrame {
-    public BranchDetailView() {
+public class BranchDetailFrm extends JFrame {
+    public BranchDetailFrm(int idBranch, Date startDate, Date endDate) {
         setTitle("BranchDetailView");
         setSize(900, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -19,7 +21,7 @@ public class BranchDetailView extends JFrame {
         btnBack.setBounds(20, 50, 80, 30);
         add(btnBack);
         btnBack.addActionListener(e -> {
-            new BranchStatisticView();
+            new BranchStatisticFrm();
             dispose();
         });
 

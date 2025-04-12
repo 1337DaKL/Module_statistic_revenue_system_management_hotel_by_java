@@ -19,6 +19,12 @@ public class HotelStat extends Hotel {
     public int getId(){
         return super.getId();
     }
+    public void setId(int id){
+        super.setId(id);
+    }
+    public String getBranch(){
+        return super.getAddress();
+    }
     public float getRevenueRoom() {
         return revenueRoom;
     }

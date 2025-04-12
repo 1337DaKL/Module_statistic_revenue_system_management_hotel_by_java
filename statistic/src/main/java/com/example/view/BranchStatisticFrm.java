@@ -3,8 +3,11 @@ package com.example.view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import org.w3c.dom.events.MouseEvent;
+import com.example.view.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +16,7 @@ import java.util.*;
 
 import com.example.dao.*;
 import com.example.model.HotelStat;
-public class BranchStatisticView extends JFrame {
+public class BranchStatisticFrm extends JFrame {
     public static boolean isValidDate(String dateStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         try {
@@ -34,7 +37,7 @@ public class BranchStatisticView extends JFrame {
             return true;
         }
     }
-    public BranchStatisticView() {
+    public BranchStatisticFrm() {
         setTitle("BranchStatisticView");
         setSize(900, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -63,12 +66,12 @@ public class BranchStatisticView extends JFrame {
         btnStatistic.setBounds(400, 50, 100, 30);
         add(btnStatistic);
 
-        String[] columns = {"Number", "Branch name", "Room Revenue", "Service Revenue", "Total Revenue"};
-        JTable table = new JTable(new DefaultTableModel(columns, 5));
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(20, 100, 850, 400);
-        add(scrollPane);
-
+        JLabel lblNotificationEmpty = new JLabel("Chưa nhập ngày bắt đầu và kết thúc để thống kê!!");
+        lblNotificationEmpty.setSize(300 , 30);
+        int centerX = (getWidth() - lblNotificationEmpty.getWidth()) / 2;
+        int centerY = (getHeight() - lblNotificationEmpty.getHeight()) / 2;
+        lblNotificationEmpty.setLocation(centerX , centerY);
+        add(lblNotificationEmpty);
         btnStatistic.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String startDate = txtStart.getText().trim();
@@ -94,7 +97,7 @@ public class BranchStatisticView extends JFrame {
         
                             HotelStatDAO hotelStatDao = new HotelStatDAO();
                             ArrayList<HotelStat> ket_qua_query = hotelStatDao.getBranchStat(startDateQuery, endDateQuery);
-                            new BranchStatisticView(ket_qua_query , startDate , endDate);
+                            new BranchStatisticFrm(ket_qua_query , startDate , endDate);
                             dispose();
                         } catch (Exception ex) {
                             new NotifiCation("Lỗi xử lý ngày hoặc truy vấn dữ liệu!");
@@ -109,7 +112,7 @@ public class BranchStatisticView extends JFrame {
         setVisible(true);
         
     }
-    public BranchStatisticView(ArrayList<HotelStat> hotelStat , String startDateInput , String endDateInput){
+    public BranchStatisticFrm(ArrayList<HotelStat> hotelStat , String startDateInput , String endDateInput){
         setTitle("BranchStatisticView");
         setSize(900, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -140,11 +143,56 @@ public class BranchStatisticView extends JFrame {
         btnStatistic.setBounds(400, 50, 100, 30);
         add(btnStatistic);
 
-        String[] columns = {"Number", "Branch name", "Room Revenue", "Service Revenue", "Total Revenue"};
-        JTable table = new JTable(new DefaultTableModel(columns, 5));
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(20, 100, 850, 400);
-        add(scrollPane);
+
+        if(hotelStat.size() > 0){
+            String[] columns = {"ID" ,"Number", "Branch name", "Room Revenue", "Service Revenue", "Total Revenue"};
+            DefaultTableModel model = new DefaultTableModel(columns, hotelStat.size());
+            JTable table = new JTable(model);
+            table.getColumnModel().getColumn(0).setMinWidth(0);
+            table.getColumnModel().getColumn(0).setMaxWidth(0);
+            table.getColumnModel().getColumn(0).setPreferredWidth(0);
+            for(int i = 0 ; i < hotelStat.size() ; i++){
+                model.setValueAt(hotelStat.get(i).getId(), i, 0);
+                model.setValueAt(i + 1, i , 1); 
+                model.setValueAt(hotelStat.get(i).getBranch(), i, 2);
+                model.setValueAt(hotelStat.get(i).getRevenueRoom(), i, 3);
+                model.setValueAt(hotelStat.get(i).getRevenueService(), i, 4);
+                model.setValueAt(hotelStat.get(i).getTotalRevenue(), i, 5);
+            }
+            JScrollPane scrollPane = new JScrollPane(table);
+            scrollPane.setBounds(20, 100, 850, 400);
+            add(scrollPane);
+            table.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                    int selectedRow = table.getSelectedRow(); 
+
+                    if (selectedRow != -1) {
+                        
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            Date startDate = sdf.parse(startDateInput);
+                            Date endDate = sdf.parse(endDateInput);
+                            String idBranch = table.getValueAt(selectedRow, 0).toString();
+                            int id = Integer.parseInt(idBranch);
+                            
+                            new BranchDetailFrm(id, startDate, endDate);
+                            dispose();
+                        } catch (Exception ex) {
+                            ex.printStackTrace(); 
+                        }
+                    }
+                }
+            });
+        }
+        else{
+            JLabel lblNotificationEmpty = new JLabel("Trong khoảng thời gian bạn chọn không có doanh thu");
+            lblNotificationEmpty.setSize(300 , 30);
+            int centerX = (getWidth() - lblNotificationEmpty.getWidth()) / 2;
+            int centerY = (getHeight() - lblNotificationEmpty.getHeight()) / 2;
+            lblNotificationEmpty.setLocation(centerX , centerY);
+            add(lblNotificationEmpty);
+        }
 
         btnStatistic.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -171,7 +219,7 @@ public class BranchStatisticView extends JFrame {
         
                             HotelStatDAO hotelStatDao = new HotelStatDAO();
                             ArrayList<HotelStat> ket_qua_query = hotelStatDao.getBranchStat(startDateQuery, endDateQuery);
-                            new BranchStatisticView(ket_qua_query , startDate , endDate);
+                            new BranchStatisticFrm(ket_qua_query , startDate , endDate);
                             dispose();
                         } catch (Exception ex) {
                             new NotifiCation("Lỗi xử lý ngày hoặc truy vấn dữ liệu!");

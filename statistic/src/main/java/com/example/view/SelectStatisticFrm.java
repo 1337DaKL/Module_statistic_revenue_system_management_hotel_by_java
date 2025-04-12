@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SelectStatisticView extends JFrame {
-    public SelectStatisticView() {
+public class SelectStatisticFrm extends JFrame {
+    public SelectStatisticFrm() {
         setTitle("SelectStatisticView");
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -32,7 +32,7 @@ public class SelectStatisticView extends JFrame {
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     if (finalI == 0) {
-                        new BranchStatisticView();
+                        new BranchStatisticFrm();
                         dispose();
                     }
                 }
