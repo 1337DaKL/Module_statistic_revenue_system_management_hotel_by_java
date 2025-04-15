@@ -10,7 +10,9 @@ public class Bill {
     private String note;
     private int tblUserID;
     private int tblBookingID;
-
+    private Client client;
+    private float revenueRoom;
+    private float revenueService;
     public Bill() {}
 
     public Bill(int ID, Date paymentDate, float amount, String paymentType, String note, int tblUserID, int tblBookingID) {
@@ -43,6 +45,30 @@ public class Bill {
 
     public int getTblBookingID() { return tblBookingID; }
     public void setTblBookingID(int tblBookingID) { this.tblBookingID = tblBookingID; }
+    public Client getClient(){return this.client;}
+    public void setClient(Client client){
+        this.client = client;
+    }
+    public float getRevenueRoom (){
+        return this.revenueRoom;
+    }
+    public void setRevenueRoom(float revenueRoom){
+        this.revenueRoom = revenueRoom;
+    }
+    public float getRevenueService(){
+        return this.revenueService;
+    }
+    public void setRevenueService(float revenueService){
+        this.revenueService = revenueService;
+    }
+    @Override
+    public String toString() {
+        return "Bill{" +
+            "id=" + this.ID +
+            ", paymentDate=" + paymentDate +
+            ", amount=" + amount +
+            // thêm các field khác nếu cần
+            '}' + this.client + " |" + this.revenueRoom + " |" + this.revenueService;
+    }
 
-    
 }
